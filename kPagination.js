@@ -25,6 +25,12 @@
 
     var KPagination = function (config) {
         this.el = document.getElementById(config.id);
+
+        this.pageWrap = document.createElement('div');
+        this.pageWrap.className = 'k-pagination-num-wrap';
+
+        this.el.appendChild(this.pageWrap);
+
         this.currentPage = config.currentPage || 1;     // 当前页码
         this.totalPage = config.totalPage || 1;         // 总页码
         this.offset = config.offset || 5;               // 偏移量，显示的页码数量
@@ -34,9 +40,32 @@
         this.jumpPage = !!config.jumpPage;              // 是否跳转页面
         this.jumpText = config.jumpText || '确定';
         this.pageArray = [];
+        this.pageChangeFn = typeof config.pageChange === 'function' ? config.pageChange: undefined;
+        this.afterRefreshFn = typeof config.afterRefresh === 'function' ? config.afterRefresh: undefined;
 
         this.refresh();
         this.bindEvent();
+
+        if (this.jumpPage) {
+            this.generateInput();
+        }
+    };
+
+    /**
+     *  生成跳转输入框
+     */
+    KPagination.prototype.generateInput = function () {
+        var div = document.createElement('div');
+        div.className = 'k-pagination-input-wrap';
+        var input = document.createElement('input');
+        input.className = 'k-pagination-num-input';
+        input.type = 'text';
+        var btn = document.createElement('button');
+        btn.className = 'k-pagination-jump-btn';
+        btn.innerText = this.jumpText;
+        div.appendChild(input);
+        div.appendChild(btn);
+        this.el.appendChild(div);
     };
 
     /**
@@ -52,6 +81,9 @@
                 if (num == me.currentPage) {
                     return;
                 } else {
+                    if (me.pageChangeFn) {
+                        me.pageChangeFn.call(me, num);
+                    }
                     me.currentPage = num;
                     me.refresh();
                 }
@@ -65,6 +97,9 @@
                 if (num > me.totalPage) {
                     num = me.totalPage;
                 }
+                if (me.pageChangeFn) {
+                    me.pageChangeFn.call(me, num);
+                }
                 me.currentPage = num;
                 me.refresh();
             }
@@ -77,7 +112,11 @@
      */
     KPagination.prototype.refresh = function () {
         var numArr = this.build();
-        this.el.innerHTML = this.generateHtml(numArr);
+        this.pageWrap.innerHTML = this.generateHtml(numArr);
+        if (this.afterRefreshFn) {
+            this.afterRefreshFn.call(this);
+        }
+
     };
 
     /**
@@ -163,7 +202,7 @@
         var arr = [], cls;
         for (var i = 0; i < numArr.length; i++) {
             if (numArr[i] === '.') {
-                arr.push('<a>...</a>');
+                arr.push('<a class="k-pagination-dot">...</a>');
             } else if (typeof numArr[i] === 'string') {
                 cls = 'k-pagination-num'
                 var str = numArr[i];
@@ -186,11 +225,6 @@
                 }
                 arr.push('<a href="#" data-num="' + numArr[i] + '" class="' + cls + '">' + numArr[i] + '</a>');
             }
-        }
-
-        if (this.jumpPage) {
-            // 生成跳转
-            arr.push('<input class="k-pagination-num-input" type="text" /><button class="k-pagination-jump-btn">'+ this.jumpText +'</button>')
         }
 
         return arr.join('');
