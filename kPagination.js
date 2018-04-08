@@ -116,7 +116,11 @@
         if (this.afterRefreshFn) {
             this.afterRefreshFn.call(this);
         }
+    };
 
+    KPagination.prototype.setTotalPage = function (totalPage) {
+        this.totalPage = totalPage;
+        this.refresh();
     };
 
     /**

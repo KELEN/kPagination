@@ -55,10 +55,10 @@
 </body>
 <script src="./kPagination.js"></script>
 <script>
-new kPagination({
+var pageIns = new kPagination({
     id: 'app',
     currentPage: 1, // 当前页
-    totalPage: 20,
+    totalPage: 0,
     offset: 5,
     showPrev: true,
     showNext: true,
@@ -71,6 +71,7 @@ new kPagination({
 
     }
 });
+pageIns.setTotalPage(123);
 </script>
 
 </html>
