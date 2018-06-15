@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f51afd7-d834-46ef-8b38-7e477e0e35a6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kPagination.js" afterPath="$PROJECT_DIR$/kPagination.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pagination.html" afterPath="$PROJECT_DIR$/pagination.html" />
-    </list>
+    <list default="true" id="2f51afd7-d834-46ef-8b38-7e477e0e35a6" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -37,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/kPagination.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="381">
-              <caret line="226" column="52" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="237" selection-end-column="3" />
+              <caret line="226" column="52" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="237" selection-end-column="3" />
               <folding>
                 <marker date="1523180541815" expanded="true" signature="7465:7470" ph="..." />
                 <marker date="1523180541815" expanded="true" signature="7638:7643" ph="..." />
@@ -143,12 +140,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1523180423740</updated>
-      <workItem from="1523180425232" duration="198000" />
+      <workItem from="1523180425232" duration="790000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="198000" />
+    <option name="totallyTimeSpent" value="790000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -194,7 +191,7 @@
     <entry file="file://$PROJECT_DIR$/kPagination.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="381">
-          <caret line="226" column="52" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="237" selection-end-column="3" />
+          <caret line="226" column="52" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="237" selection-end-column="3" />
           <folding>
             <marker date="1523180541815" expanded="true" signature="7465:7470" ph="..." />
             <marker date="1523180541815" expanded="true" signature="7638:7643" ph="..." />

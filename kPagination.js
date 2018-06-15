@@ -65,6 +65,10 @@
         btn.innerText = this.jumpText;
         div.appendChild(input);
         div.appendChild(btn);
+
+        addEvent(input, 'keyup', function () {
+            this.value = this.value.replace(/\D/g, '');
+        })
         this.el.appendChild(div);
     };
 
@@ -120,6 +124,11 @@
 
     KPagination.prototype.setTotalPage = function (totalPage) {
         this.totalPage = totalPage;
+        this.refresh();
+    };
+
+    KPagination.prototype.setCurrentPage = function (currentPage) {
+        this.currentPage = currentPage;
         this.refresh();
     };
 
