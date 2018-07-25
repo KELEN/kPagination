@@ -2,6 +2,8 @@
 
 > 纯js分页插件，压缩版本~4kb，样式可以自定义
 
+#### [demo](https://kelen.github.io/kPagination/dist/index.html)
+
 ## 使用方法
 
 ```html
