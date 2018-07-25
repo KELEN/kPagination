@@ -1,9 +1,8 @@
 # kPagination分页插件
-> 纯js分页插件，压缩版本3k
+
+> 纯js分页插件，压缩版本~4kb，样式可以自定义
 
 ## 使用方法
-
-引入js插件
 
 ```html
 <div id="pagination"></div>
@@ -22,7 +21,7 @@
 </script>
 ```
 
-## 配置项
+### 配置项
 
 选项 | 类型 | 说明
 ----------- | ------------- | -------------
@@ -33,7 +32,8 @@ jumpPage | boolean | 是否显示跳转输入框
 jumpText | string | 跳转按钮的文字
 pageChange| function| 页面触发回调
 afterRefresh | function | 重新渲染成功回调
-## 可选样式
+
+### 可选样式
 
 选项 | 说明
 ------------ | -------------
@@ -44,4 +44,4 @@ k-pagination-num-active | 激活样式
 k-pagination-disabled | 禁止样式
 k-pagination-num-input | 输入框样式
 k-pagination-jump-btn | 跳转按钮样式
-k-pagination-jump-btn | 省略号样式
+k-pagination-jump-dot | 省略号样式

@@ -1,0 +1,33 @@
+{
+  "name": "k-pagination",
+  "version": "1.0.0",
+  "description": "tiny plugin for pagination",
+  "main": "kPagination.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KELEN/kPagination.git"
+  },
+  "keywords": [
+    "page",
+    "pagination"
+  ],
+  "author": "kelen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KELEN/kPagination/issues"
+  },
+  "homepage": "https://github.com/KELEN/kPagination#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1",
+    "pump": "^3.0.0"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3"
+  }
+}
