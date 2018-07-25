@@ -39,7 +39,6 @@
         this.offsetHalf = Math.floor((this.offset - 1) / 2);
         this.jumpPage = !!config.jumpPage;              // 是否跳转页面
         this.jumpText = config.jumpText || '确定';
-        this.pageArray = [];
         this.pageChangeFn = typeof config.pageChange === 'function' ? config.pageChange: undefined;
         this.afterRefreshFn = typeof config.afterRefresh === 'function' ? config.afterRefresh: undefined;
 
@@ -123,12 +122,12 @@
     };
 
     KPagination.prototype.setTotalPage = function (totalPage) {
-        this.totalPage = totalPage;
+        this.totalPage = parseInt(totalPage);
         this.refresh();
     };
 
     KPagination.prototype.setCurrentPage = function (currentPage) {
-        this.currentPage = currentPage;
+        this.currentPage = parseInt(currentPage);
         this.refresh();
     };
 
@@ -162,6 +161,11 @@
             if (this.currentPage < this.totalPage) {
                 arr.push('.');
                 arr.push(this.totalPage);
+            }
+        } else if (this.currentPage > this.totalPage - this.offset + 1) {
+            arr.push(1, '.');
+            for (i = this.totalPage - this.offset + 1; i <= this.totalPage; i++) {
+                arr.push(i);
             }
         } else if (this.currentPage >= this.offset) {
             // 超过offset的话显示省略号
@@ -207,7 +211,6 @@
             arr.push('n-' + Math.max(1, Math.min(this.currentPage + 1, this.totalPage)));
         }
 
-        this.pageArray = arr;
         return arr;
     };
 
