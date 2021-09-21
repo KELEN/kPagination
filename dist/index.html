@@ -1,156 +1,168 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
+
 <head>
-    <style>
-        .k-pagination-num,
-        .k-pagination-dot,
-        .k-pagination-disabled {
-            min-width: 34px;
-            height: 34px;
-            line-height: 34px;
-            display: inline-block;
-            border: 1px solid #a5a5a5;
-            background-color: #fff;
-            text-decoration: none;
-            text-align: center;
-            color: #000;
-            margin: 0 4px;
-        }
+  <style>
+    .k-pagination-num,
+    .k-pagination-dot,
+    .k-pagination-disabled {
+      min-width: 34px;
+      height: 34px;
+      line-height: 34px;
+      display: inline-block;
+      border: 1px solid #a5a5a5;
+      background-color: #fff;
+      text-decoration: none;
+      text-align: center;
+      color: #000;
+      margin: 0 4px;
+      user-select: none;
+    }
 
-        .k-pagination-dot {
-            background: none;
-            border: none;
-            font-weight: bolder;
-        }
+    .k-pagination-dot {
+      background: none;
+      border: none;
+      font-weight: bolder;
+    }
 
-        .k-pagination-num-active {
-            background-color: grey;
-            color: #fff;
-        }
+    .k-pagination-num-active {
+      background-color: grey;
+      color: #fff;
+    }
 
-        .k-pagination-num-input {
-            width: 40px;
-            padding: 6px;
-        }
+    .k-pagination-num-input {
+      width: 40px;
+      padding: 6px;
+    }
 
-        .k-pagination-num-wrap,
-        .k-pagination-input-wrap {
-            height: 36px;
-            vertical-align: middle;
-            display: inline-block;
-        }
+    .k-pagination-num-wrap,
+    .k-pagination-input-wrap {
+      height: 36px;
+      vertical-align: middle;
+      display: inline-block;
+    }
 
-        .k-pagination-jump-btn {
-            border: none;
-            background-color: grey;
-            color: #fff;
-            height: 32px;
-        }
+    .k-pagination-jump-btn {
+      border: none;
+      background-color: grey;
+      color: #fff;
+      height: 32px;
+    }
 
-        .k-pagination-disabled {
-            color: crimson;
-        }
+    .k-pagination-disabled {
+      color: crimson;
+    }
 
-        .k-pagination-num-input {
-            height: 100%;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            vertical-align: middle;
-        }
+    .k-pagination-num-input {
+      height: 100%;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      vertical-align: middle;
+    }
 
-        .k-pagination-jump-btn {
-            height: 100%;
-            vertical-align: middle;
-        }
+    .k-pagination-jump-btn {
+      height: 100%;
+      vertical-align: middle;
+    }
 
-        #pageForm input {
-            width: 80px;
-            height: 24px;
-        }
-    </style>
+    #pageForm input {
+      width: 80px;
+      height: 24px;
+    }
+  </style>
 </head>
 
 <body>
-<h3>不带输入框的分页，当前页码是<span id="currPage1"></span></h3>
-<div id="page1"></div>
-<hr>
-<h3>输入框的分页，当前页码是<span id="currPage2"></span></h3>
-<div id="page2"></div>
-<hr>
-<h3>动态设置分页，当前页码是<span id="currPage3"></span></h3>
-<form id="pageForm">
+  <h3>不带输入框的分页，当前页码是<span id="currPage1"></span></h3>
+  <div id="page1" data-total="20" data-page="4"></div>
+  <hr>
+  <h3>自定义渲染链接</h3>
+  <div id="page2" data-total="20" data-page="3"></div>
+  <!-- <h3>输入框的分页，当前页码是<span id="currPage2"></span></h3>
+  <div id="page2"></div>
+  <hr>
+  <h3>动态设置分页，当前页码是<span id="currPage3"></span></h3>
+  <form id="pageForm">
     <label for="">总页码</label>
     <input type="text" name="totalPage" value="20">
     <label for="">当前页</label>
     <input type="text" name="currPage" value="16">
     <button onclick="setPage()" type="button">设置</button>
-</form>
-<br>
-<div id="page3"></div>
+  </form>
+  <br>
+  <div id="page3"></div> -->
 </body>
-<script src="./kPagination.min.js"></script>
+<script src="./index.js"></script>
 <script>
-    var currPage1 = document.getElementById('currPage1');
-    new kPagination({
-        id: 'page1',
-        currentPage: 16, // 当前页
-        totalPage: 20,
-        offset: 5,
-        showPrev: true,
-        showNext: true,
-        pageChange(num) {
-            currPage1.innerHTML = '[' + num + ']';
-        }
-    });
-
-    var currPage2 = document.getElementById('currPage2');
-    new kPagination({
-        id: 'page2',
-        currentPage: 16, // 当前页
-        totalPage: 20,
-        offset: 5,
-        showPrev: true,
-        showNext: true,
-        jumpPage: true,
-        jumpText: '确定',
-        pageChange(num) {
-            currPage2.innerHTML = '[' + num + ']';
-        }
-    });
-
-    var currPage3 = document.getElementById('currPage3');
-    var pageIns = new kPagination({
-        id: 'page3',
-        currentPage: 16, // 当前页
-        totalPage: 20,
-        offset: 5,
-        showPrev: true,
-        showNext: true,
-        pageChange(num) {
-            currPage3.innerHTML = '[' + num + ']';
-        },
-        afterRefresh () {
-            // 重新生成分页内容后，可以做layout布局处理
-        }
-    });
-
-    var form = document.getElementById('pageForm');
-    function setPage() {
-        var formEls = form.elements;
-        for (var i = 0; i < formEls.length; i++) {
-            if (formEls[i].tagName === 'INPUT') {
-                if (formEls[i].name == 'totalPage') {
-                    pageIns.setTotalPage(formEls[i].value);
-                }
-                if (formEls[i].name == 'currPage') {
-                    console.log(formEls[i].value)
-                    pageIns.setCurrentPage(formEls[i].value);
-                }
-            }
-        }
+  const pageIns = new KPagination({
+    el: '#page1',
+    offset: 5,
+    pageChange(num) {
+      currPage1.innerHTML = '[' + num + ']';
     }
+  });
+
+
+  const pageIns2 = new KPagination({
+    el: '#page2',
+    offset: 5,
+    linkTarget: '_blank',
+    linkTemplate: 'https://www.abc.com/{{page}}',
+    pageChange(num) {
+      currPage1.innerHTML = '[' + num + ']';
+    }
+  });
+
+  // var currPage2 = document.getElementById('currPage2');
+  // new KPagination({
+  //   id: '#page2',
+  //   currentPage: 16, // 当前页
+  //   totalPage: 20,
+  //   offset: 5,
+  //   showPrev: true,
+  //   showNext: true,
+  //   jumpPage: true,
+  //   jumpText: '确定',
+  //   pageChange(num) {
+  //     currPage2.innerHTML = '[' + num + ']';
+  //   }
+  // });
+
+  // var currPage3 = document.getElementById('currPage3');
+  // var pageIns = new KPagination({
+  //   id: '#page3',
+  //   currentPage: 16, // 当前页
+  //   totalPage: 20,
+  //   offset: 5,
+  //   showPrev: true,
+  //   showNext: true,
+  //   pageChange(num) {
+  //     currPage3.innerHTML = '[' + num + ']';
+  //   },
+  //   afterRefresh() {
+  //     // 重新生成分页内容后，可以做layout布局处理
+  //   }
+  // });
+
+  console.log(pageIns)
+
+  var form = document.getElementById('pageForm');
+  function setPage() {
+    var formEls = form.elements;
+    for (var i = 0; i < formEls.length; i++) {
+      if (formEls[i].tagName === 'INPUT') {
+        if (formEls[i].name == 'totalPage') {
+          pageIns.setTotalPage(formEls[i].value);
+        }
+        if (formEls[i].name == 'currPage') {
+          console.log(formEls[i].value)
+          pageIns.setCurrentPage(formEls[i].value);
+        }
+      }
+    }
+  }
 </script>
 
 </html>
