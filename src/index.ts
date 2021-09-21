@@ -7,11 +7,14 @@ interface IProps {
   el: HTMLElement | string
   offset?: number,
   linkTemplate?: string,
-  linkTarget?: string
+  linkTarget?: string,
+  ssr?: boolean,
+  totalPage?: number,
+  currentPage?: number,
 }
 
 class KPagination {
-  el: HTMLElement | null;
+  el: HTMLElement | null = null;
   /**
    * 当前页码
    */
@@ -25,7 +28,7 @@ class KPagination {
   /**
    * 显示的按钮个数
    */
-  offset: number = 5;
+  offset: number | undefined = 5;
 
   /**
    * 显示上一页
@@ -52,35 +55,50 @@ class KPagination {
    */
   linkTarget: string | undefined = '_self';
 
+  /**
+   * 服务端渲染
+   */
+  ssr: boolean = false;
+
   constructor(props: IProps) {
     const {
       el,
       offset, // 页面偏移
       linkTemplate,
       linkTarget,
+      ssr,
+      currentPage,
+      totalPage,
     } = props;
 
-    if (typeof el === 'string') {
-      this.el = document.querySelector(el)
-    } else {
-      this.el = el;
-    }
-
-    if (!this.el) {
-      console.error('el is not found in document')
-      return
-    }
-
-    this.totalPage = Number(this.el.getAttribute('data-total'));
-    this.currentPage = Number(this.el.getAttribute('data-page'));
-    this.linkTemplate = linkTemplate;
-    this.linkTarget = linkTarget;
-    this.offset = offset || 5;
-
-    this.refresh();
-
-    if (!linkTemplate) {
-      this.bindEvent();
+    if (!ssr) {
+      // 客户端渲染
+      if (typeof el === 'string') {
+        this.el = document.querySelector(el)
+      } else {
+        this.el = el;
+      }
+  
+      if (!this.el) {
+        console.error('el is not found in document')
+        return
+      }
+  
+      this.totalPage = Number(this.el.getAttribute('data-total'));
+      this.currentPage = Number(this.el.getAttribute('data-page'));
+      this.linkTemplate = linkTemplate;
+      this.linkTarget = linkTarget;
+      this.offset = offset;
+  
+      this.refresh();
+  
+      if (!linkTemplate) {
+        this.bindEvent();
+      }
+    } else if (currentPage && totalPage) {
+      this.currentPage = currentPage;
+      this.totalPage = totalPage;
+      this.offset = offset;
     }
   }
 
@@ -332,6 +350,14 @@ class KPagination {
       })
     }
     return arr.join('');
+  }
+
+  /**
+   * 获取分页的html，使用在server side render
+   */
+  public getPagesHtml = () => {
+    const pageArr = this.build();
+    return this.generateHtml(pageArr)
   }
 
 }

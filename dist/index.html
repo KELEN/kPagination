@@ -115,6 +115,17 @@
     }
   });
 
+  const pageIns3 = new KPagination({
+    ssr: true,
+    currentPage: 2,
+    totalPage: 10,
+    offset: 5,
+    linkTarget: '_blank',
+    linkTemplate: 'https://www.abc.com/{{page}}',
+  });
+
+  console.log(pageIns3.getPagesHtml());
+
   // var currPage2 = document.getElementById('currPage2');
   // new KPagination({
   //   id: '#page2',
@@ -145,8 +156,6 @@
   //     // 重新生成分页内容后，可以做layout布局处理
   //   }
   // });
-
-  console.log(pageIns)
 
   var form = document.getElementById('pageForm');
   function setPage() {

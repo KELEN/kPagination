@@ -1,5 +1,6 @@
 import commonjs from 'rollup-plugin-commonjs';
 import typescript from 'rollup-plugin-typescript';
+import { uglify } from "rollup-plugin-uglify";
 import pkg from './package.json';
 
 export default {
@@ -11,6 +12,7 @@ export default {
   },
   plugins: [
     commonjs(),
-    typescript()
+    typescript(),
+    uglify()
   ]
 }; 
