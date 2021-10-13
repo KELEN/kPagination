@@ -1,6 +1,6 @@
 {
   "name": "k-pagination",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "tiny plugin for pagination",
   "main": "dist/index.js",
   "browser": "dist/index.js",

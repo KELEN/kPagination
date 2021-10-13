@@ -28,7 +28,7 @@ class KPagination {
   /**
    * 显示的按钮个数
    */
-  offset: number | undefined = 5;
+  offset: number = 5;
 
   /**
    * 显示上一页
@@ -48,12 +48,12 @@ class KPagination {
   /**
    * 链接模板，用于SEO
    */
-  linkTemplate: string | undefined = undefined;
+  linkTemplate: string = '';
 
   /**
    * 点击跳转目标，等同于 a 标签的 target 属性
    */
-  linkTarget: string | undefined = '_self';
+  linkTarget: string = '_self';
 
   /**
    * 服务端渲染
@@ -71,6 +71,8 @@ class KPagination {
       totalPage,
     } = props;
 
+    this.offset = offset;
+
     if (!ssr) {
       // 客户端渲染
       if (typeof el === 'string') {
@@ -78,27 +80,28 @@ class KPagination {
       } else {
         this.el = el;
       }
-  
+
       if (!this.el) {
         console.error('el is not found in document')
         return
       }
-  
+
       this.totalPage = Number(this.el.getAttribute('data-total'));
       this.currentPage = Number(this.el.getAttribute('data-page'));
-      this.linkTemplate = linkTemplate;
-      this.linkTarget = linkTarget;
-      this.offset = offset;
-  
+
       this.refresh();
-  
+
       if (!linkTemplate) {
         this.bindEvent();
       }
-    } else if (currentPage && totalPage) {
+    } else {
+      this.linkTemplate = linkTemplate || '';
+      this.linkTarget = linkTarget || '';
+    }
+
+    if (currentPage && totalPage) {
       this.currentPage = currentPage;
       this.totalPage = totalPage;
-      this.offset = offset;
     }
   }
 
@@ -294,61 +297,33 @@ class KPagination {
     } = this;
     let arr: string[] = [];
 
-    if (linkTemplate) {
-      pageArr.forEach((p) => {
-        let cls = '';
-        if (p === '.') {
-          arr.push('<span class="k-pagination-dot">...</span>');
-        } else if (typeof p === 'string') {
-          cls = 'k-pagination-num'
-          let [flag, page] = p.split('-');
-          if (+page === +currentPage) {
-            cls = 'k-pagination-disabled';
-          }
-          if (flag === 'p') {
-            // prev
-            const aLink = this.getLinkByTemplate(page, '«', cls);
-            arr.push(aLink);
-          } else if (flag === 'n') {
-            // next
-            const aLink = this.getLinkByTemplate(page, '»', cls);
-            arr.push(aLink);
-          }
-        } else {
-          cls = 'k-pagination-num';
-          if (+currentPage === +p) {
-            cls += ' k-pagination-num-active';
-          }
-          arr.push(this.getLinkByTemplate(p, p, cls));
+    pageArr.forEach((p) => {
+      let cls = '';
+      if (p === '.') {
+        arr.push('<span class="k-pagination-dot">...</span>');
+      } else if (typeof p === 'string') {
+        cls = 'k-pagination-num'
+        let [flag, page] = p.split('-');
+        if (+page === +currentPage) {
+          cls = 'k-pagination-num k-pagination-disabled';
         }
-      })
-    } else {
-      pageArr.forEach((p) => {
-        let cls = '';
-        if (p === '.') {
-          arr.push('<a class="k-pagination-dot">...</a>');
-        } else if (typeof p === 'string') {
-          cls = 'k-pagination-num'
-          let [flag, page] = p.split('-');
-          if (+page === +currentPage) {
-            cls = 'k-pagination-disabled';
-          }
-          if (flag === 'p') {
-            // 上一页
-            arr.push(this.getLink(page, "«", cls));
-          } else if (flag === 'n') {
-            // 下一页
-            arr.push(this.getLink(page, "»", cls));
-          }
-        } else {
-          cls = 'k-pagination-num';
-          if (+currentPage === +p) {
-            cls += ' k-pagination-num-active';
-          }
-          arr.push(this.getLink(p, p, cls));
+        if (flag === 'p') {
+          // prev
+          const aLink = linkTemplate ? this.getLinkByTemplate(page, '«', cls) : this.getLink(page, "«", cls);
+          arr.push(aLink);
+        } else if (flag === 'n') {
+          // next
+          const aLink = linkTemplate ? this.getLinkByTemplate(page, '»', cls) : this.getLink(page, "»", cls);
+          arr.push(aLink);
         }
-      })
-    }
+      } else {
+        cls = 'k-pagination-num';
+        if (+currentPage === +p) {
+          cls = 'k-pagination-num k-pagination-num-active';
+        }
+        arr.push(linkTemplate ? this.getLinkByTemplate(p, p, cls) : this.getLink(p, p, cls));
+      }
+    })
     return arr.join('');
   }
 

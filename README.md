@@ -4,22 +4,26 @@
 
 #### [demo](https://kelen.github.io/kPagination/dist/index.html)
 
+###
+
+npm i k-pagination
+
+import kPagination from 'k-pagination'
+
 ## 使用方法
 
 ```html
 <div id="pagination"></div>
 <script src="kPagination.min.js"></script>
 <script>
-    new kPagination({
-        id: 'pagination',
-        currentPage: 1,         // 当前页
-        totalPage: 20,
-        offset: 5,
-        showPrev: true,
-        showNext: true,
-        jumpPage: true,
-        jumpText: '跳转'
-    });
+  new kPagination({
+    id: 'pagination',
+    currentPage: 1,         // 当前页
+    totalPage: 20,
+    offset: 5,
+    showPrev: true,
+    showNext: true,
+  });
 </script>
 ```
 
